@@ -1,7 +1,5 @@
 FROM ubuntu:22.04
 
-MAINTAINER Ruslan Molchanov <ruslanys@gmail.com>
-
 RUN apt-get update \
 
     # Upgrade
@@ -25,5 +23,4 @@ RUN apt-get update \
 
     && mkdir /root/Yandex.Disk
 
-ENTRYPOINT ["yandex-disk"]
-CMD ["start", "--no-daemon", "--dir=/root/Yandex.Disk"]
+ENV PUID=1000 PGID=1000

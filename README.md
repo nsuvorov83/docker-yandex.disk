@@ -1,8 +1,5 @@
 # Yandex.Disk Docker image
 
-[![Docker Automated build](https://img.shields.io/docker/automated/ruslanys/yandex.disk.svg?style=flat-square&colorB=007EC6)](https://hub.docker.com/r/ruslanys/yandex.disk/) [![Docker Pulls](https://img.shields.io/docker/pulls/ruslanys/yandex.disk.svg?style=flat-square&colorB=007EC6)](https://hub.docker.com/r/ruslanys/yandex.disk/)
-
-
 ## How it works
 
 1. Run container using interactive mode with mounted directory for configuration
@@ -13,17 +10,11 @@
 ## Setup mode
 
 ```
-docker run --rm -it \
-           -v /opt/yandex.disk/config:/root/.config/yandex-disk \
-           -v /opt/yandex.disk/data:/root/Yandex.Disk \
-           ruslanys/yandex.disk setup
+docker run -it --rm --name yandex-disk -v yd-config:/root/.config/yandex-disk -v yd-data:/root/Yandex.Disk yandex-disk sh -c "yandex-disk --dir=/root/Yandex.Disk  setup"
 ```
 
 ## Daemon mode
 
 ```
-docker run -d --name yandex.disk --restart always \
-           -v /opt/yandex.disk/config:/root/.config/yandex-disk \
-           -v /opt/yandex.disk/data:/root/Yandex.Disk \
-           ruslanys/yandex.disk
+docker run -d --restart always -v yd-config:/root/.config/yandex-disk -v yd-data:/root/Yandex.Disk yandex-disk sh -c "yandex-disk --dir=/root/Yandex.Disk start && tail -f /dev/null"
 ```
